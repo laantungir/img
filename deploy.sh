@@ -1,11 +1,9 @@
 
-cp ../../Convert/BW/images.mjs ./src/lib/images.mjs
+
 
 vite build; 
 rm -fr docs/*; 
 cp -r build/* docs/; 
-
-cp ../../Convert/BW/* docs/
 
 git add .; 
 git commit --allow-empty-message -m '' ;
