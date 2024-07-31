@@ -3,8 +3,8 @@
     import { jsonImg } from "$lib/images.mjs";
 
     const divClicked = (Key) => {
-        console.log("Clicked", `https://teknari.github.io/img/${Key}`);
-        navigator.clipboard.writeText(`https://teknari.github.io/img/${Key}`);
+        console.log("Clicked", `https://laantungir.github.io/img/${Key}`);
+        navigator.clipboard.writeText(`https://laantungir.github.io/img/${Key}`);
         for (const [index, [Img, value]] of Object.entries(Object.entries(jsonImg))) {
             if (Img == Key){
                 console.log(`${index}: ${Key} = ${value}`);
@@ -28,11 +28,11 @@
             <div class="divTopBox">
             <button class="btnImg"
                 on:click={() => {
-                    window.open(`https://teknari.github.io/img/${Key}`, "_blank");
+                    window.open(`https://laantungir.github.io/img/${Key}`, "_blank");
                 }}
             >
 
-                <img class="clsThumb" src={`https://teknari.github.io/img/${Key}`} alt="pic" />
+                <img class="clsThumb" src={`https://laantungir.github.io/img/${Key}`} alt="pic" />
             </button>
         </div>
             <button  class="btnInfo" on:click={()=>{divClicked(Key)}}>{`${Value.dimensions[0]}:${Value.dimensions[1]} ${Value.size} ${Value.uploaded} ${Value.posted}`}</button>
@@ -43,8 +43,8 @@
 <!-- <table>
     {#each Object.entries(jsonImg) as [Key, Value]}
         <tr>
-            <img class="clsThumb" src={`https://teknari.github.io/img/${Key}`} />
-            <td> <a href={`https://teknari.github.io/img/${Key}`}> {`https://teknari.github.io/img/${Key}`}</a></td>
+            <img class="clsThumb" src={`https://laantungir.github.io/img/${Key}`} />
+            <td> <a href={`https://laantungir.github.io/img/${Key}`}> {`https://laantungir.github.io/img/${Key}`}</a></td>
             <td>{Value.timestamp}</td>
             <td>{Value.size}</td>
             <td>{Value.dimensions}</td>
