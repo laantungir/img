@@ -2,7 +2,8 @@
   import { onMount } from "svelte";
 //   import { jsonImg } from "$lib/images.mjs";
 //   import { jsonImg } from "https://laantungir.github.io/img_repo/images.mjs";
-
+import {jsonVersion} from "$lib/version.mjs"
+  import { VERSION } from "svelte/compiler";
     let jsonImg = {}
 
   const divClicked = (Key) => {
@@ -32,6 +33,44 @@
       console.error("Error fetching the page:", error);
     }
   });
+
+  const strFileSize = (Size) => {
+    let numSize = Number(Size)
+
+    if (numSize > 1000000000){
+      return ((numSize / 1000000000 ).toFixed(0) + "G")
+    }
+
+    if (numSize > 1000000){
+      return ((numSize / 1000000).toFixed(0) + "M")
+    }
+
+    if (numSize > 1000){
+      return ((numSize / 1000 ).toFixed(0) + "K")
+    }
+  }
+// PAD A NUMBER WITH LEADING ZEROES
+const pad = (num, size) => {
+    num = num.toString();
+    while (num.length < size) num = "0" + num;
+    return num;
+};
+  const TC = (UNIX_timestamp) => {
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var year = a.getFullYear();
+    var monthNum = a.getMonth() + 1
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = pad(a.getHours(), 2);
+    var min = pad(a.getMinutes(), 2);
+    var sec = pad(a.getSeconds(), 2);
+    // var time = date + " " + month + " " + year + " " + hour + ":" + min + "." + sec;
+    // var time = year + monthNum + date + " " + hour + ":" + min ;
+    var time = `${year}${monthNum}${date} ${hour}:${min}`;
+
+    return time;
+}
 
 </script>
 
@@ -64,23 +103,18 @@
         on:click={() => {
           divClicked(Key);
         }}
-        >{`${Value.dimensions[0]}:${Value.dimensions[1]} ${Value.size} ${Value.uploaded} ${Value.posted}`}</button
+        >{`${Value.dimensions[0]}:${Value.dimensions[1]} ${strFileSize(Value.size)} ${TC(Value.uploaded)} ${Value.posted}`}</button
       >
     </div>
   {/each}
 </div>
 
-<!-- <table>
-    {#each Object.entries(jsonImg) as [Key, Value]}
-        <tr>
-            <img class="clsThumb" src={`https://laantungir.github.io/img_repo/${Key}`} />
-            <td> <a href={`https://laantungir.github.io/img_repo/${Key}`}> {`https://laantungir.github.io/img_repo/${Key}`}</a></td>
-            <td>{Value.timestamp}</td>
-            <td>{Value.size}</td>
-            <td>{Value.dimensions}</td>
-        </tr>
-    {/each}
-</table> -->
+<div id="divFooter">
+
+  {Object.entries(jsonImg).length} i, v {jsonVersion.version} 
+</div>
+
+
 
 <style>
   @font-face {
@@ -125,6 +159,24 @@
     align-items: center;
     flex-direction: column;
   }
+
+  #divFooter {
+    flex-basis: calc(20% - 16px);
+    margin: 7px;
+    /* height: 200px; */
+    border: 1px solid grey;
+    border-radius: 4px;
+    text-align: center;
+    padding: 4px;
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column; */
+  }
+
+
+
+
   /* .divBoxes:active {
         background-color: gray;
     } */
