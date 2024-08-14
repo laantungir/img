@@ -76,7 +76,7 @@ const pad = (num, size) => {
 
 <!-- {jsonImg} -->
 <!-- {JSON.stringify(jsonImg)} -->
-<h1>Gallery</h1>
+<h1>Gallery {Object.entries(jsonImg).length}</h1>
 
 <div id="divMain">
   {#each Object.entries(jsonImg) as [Key, Value]}
