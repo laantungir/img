@@ -1,6 +1,6 @@
 {
   "name": "Image",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "A nostr image app",
   "start_url": "./index.html",
   "short_name": "Image",

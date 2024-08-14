@@ -148,17 +148,70 @@ const pad = (num, size) => {
   }
 
   .divBoxes {
-    flex-basis: calc(20% - 16px);
+    flex-basis: calc(10% - 16px);
     margin: 7px;
-    height: 200px;
+    /* height:calc(10% - 16px); */
+    height: 250px;
     border: 1px solid black;
     border-radius: 4px;
-
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
+
+    overflow: hidden;
   }
+
+  .btnImg {
+    border: none;
+    /* border: 1px solid transparent; */
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+
+
+  }
+  .btnImg:hover {
+    border: 2px solid red;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  .clsThumb {
+    padding: 0;
+    margin: 0;
+    width: 210px;
+    height: 250px;
+    /* max-width: 200px;
+    max-height: 200px; */
+    object-fit: cover;
+  }
+
+  .btnInfo {
+    position:absolute ;
+    bottom: 0;
+    left:0;
+    right:0;
+    background-color: white;
+    border:none;
+    /* border: 1px solid #eee; */
+    font-size: 0.5vw;
+    /* padding: 5px; */
+    /* border-radius: 4px;
+    margin-bottom: 8px;
+    width: 90%; */
+
+
+  }
+  .btnInfo:hover {
+    border: 1px solid black;
+    background-color: red;
+    cursor: pointer;
+  }
+
+
+
 
   #divFooter {
     flex-basis: calc(20% - 16px);
@@ -175,12 +228,6 @@ const pad = (num, size) => {
   }
 
 
-
-
-  /* .divBoxes:active {
-        background-color: gray;
-    } */
-
   .divTopBox {
     /* border: 1px solid yellow; */
     display: flex;
@@ -190,35 +237,6 @@ const pad = (num, size) => {
     height: 100%;
   }
 
-  .clsThumb {
-    padding: 0;
-    margin: 0;
-    max-width: 150px;
-    max-height: 150px;
-  }
 
-  .btnInfo {
-    background-color: white;
-    border: 1px solid #eee;
-    font-size: 0.8vw;
-    padding: 5px;
-    border-radius: 4px;
-    margin-bottom: 8px;
-    width: 90%;
-  }
-  .btnInfo:hover {
-    border: 1px solid black;
-    background-color: transparent;
-  }
-  .btnImg {
-    border: none;
-    border: 1px solidtransparent;
-    background-color: transparent;
-    padding: 0;
-    margin: 0;
-  }
-  .btnImg:hover {
-    border: 1px solid black;
-    background-color: transparent;
-  }
+
 </style>
