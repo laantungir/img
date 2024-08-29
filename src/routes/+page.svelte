@@ -1,11 +1,17 @@
 <script>
   import { onMount } from "svelte";
-//   import { jsonImg } from "$lib/images.mjs";
-//   import { jsonImg } from "https://laantungir.github.io/img_repo/images.mjs";
-import {jsonVersion} from "$lib/version.mjs"
+  import {arrOfObjSort} from "$lib/utilities.mjs"
+  import {jsonVersion} from "$lib/version.mjs"
   import { VERSION } from "svelte/compiler";
-    let jsonImg = {}
 
+  
+  
+  let jsonImg = []
+
+
+
+
+    
   const divClicked = (Key) => {
     console.log("Clicked", `https://laantungir.github.io/img_repo/${Key}`);
     navigator.clipboard.writeText(
@@ -22,17 +28,7 @@ import {jsonVersion} from "$lib/version.mjs"
     }
   };
 
-  onMount(async () => {
-    const url = "https://laantungir.github.io/img_repo/images.json"; 
-    
-    try {
-      const response = await fetch(url);
-      jsonImg= await response.json();
-      
-    } catch (error) {
-      console.error("Error fetching the page:", error);
-    }
-  });
+
 
   const strFileSize = (Size) => {
     let numSize = Number(Size)
@@ -72,49 +68,56 @@ const pad = (num, size) => {
     return time;
 }
 
+
+onMount(async () => {
+    const url = "https://laantungir.github.io/img_repo/images.json"; 
+    
+    try {
+      const response = await fetch(url);
+      jsonImg= await response.json();
+
+      console.log(jsonImg, jsonImg.length)
+      jsonImg = await arrOfObjSort(jsonImg,"created", false)
+      console.log(jsonImg, jsonImg.length)
+      
+    } catch (error) {
+      console.error("Error fetching the page:", error);
+    }
+  });
+
+
 </script>
 
 <!-- {jsonImg} -->
 <!-- {JSON.stringify(jsonImg)} -->
-<h1>Gallery {Object.entries(jsonImg).length}</h1>
+<h1>Gallery {jsonImg.length}</h1>
 
 <div id="divMain">
-  {#each Object.entries(jsonImg) as [Key, Value]}
+  {#each jsonImg as Each}
     <div class="divBoxes">
       <div class="divTopBox">
         <button
           class="btnImg"
           on:click={() => {
-            window.open(
-              `https://laantungir.github.io/img_repo/${Key}`,
-              "_blank"
-            );
+            window.open(`https://laantungir.github.io/img_repo/${Each.file}`, "_blank");
           }}
         >
-          <img
-            class="clsThumb"
-            src={`https://laantungir.github.io/img_repo/${Key}`}
-            alt="pic"
-          />
+          <img class="clsThumb" src={`https://laantungir.github.io/img_repo/${Each.file}`} alt="pic" />
         </button>
       </div>
       <button
         class="btnInfo"
         on:click={() => {
           divClicked(Key);
-        }}
-        >{`${Value.dimensions[0]}:${Value.dimensions[1]} ${strFileSize(Value.size)} ${TC(Value.uploaded)} ${Value.posted}`}</button
+        }}>{`${Each.dimensions[0]}:${Each.dimensions[1]} ${strFileSize(Each.size)} ${TC(Each.uploaded)} ${Each.posted}`}</button
       >
     </div>
   {/each}
 </div>
 
 <div id="divFooter">
-
-  {Object.entries(jsonImg).length} i, v {jsonVersion.version} 
+  {Object.entries(jsonImg).length} i, v {jsonVersion.version}
 </div>
-
-
 
 <style>
   @font-face {
@@ -169,8 +172,6 @@ const pad = (num, size) => {
     background-color: transparent;
     padding: 0;
     margin: 0;
-
-
   }
   .btnImg:hover {
     border: 2px solid red;
@@ -189,29 +190,24 @@ const pad = (num, size) => {
   }
 
   .btnInfo {
-    position:absolute ;
+    position: absolute;
     bottom: 0;
-    left:0;
-    right:0;
+    left: 0;
+    right: 0;
     background-color: white;
-    border:none;
+    border: none;
     /* border: 1px solid #eee; */
     font-size: 0.5vw;
     /* padding: 5px; */
     /* border-radius: 4px;
     margin-bottom: 8px;
     width: 90%; */
-
-
   }
   .btnInfo:hover {
     border: 1px solid black;
     background-color: red;
     cursor: pointer;
   }
-
-
-
 
   #divFooter {
     flex-basis: calc(20% - 16px);
@@ -227,7 +223,6 @@ const pad = (num, size) => {
     flex-direction: column; */
   }
 
-
   .divTopBox {
     /* border: 1px solid yellow; */
     display: flex;
@@ -236,7 +231,4 @@ const pad = (num, size) => {
     flex-direction: column;
     height: 100%;
   }
-
-
-
 </style>
