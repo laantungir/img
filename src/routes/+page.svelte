@@ -109,7 +109,7 @@ onMount(async () => {
         class="btnInfo"
         on:click={() => {
           divClicked(Key);
-        }}>{`${Each.dimensions[0]}:${Each.dimensions[1]} ${strFileSize(Each.size)} ${TC(Each.uploaded)} ${Each.posted}`}</button
+        }}>{`${Each.dimensions[0]}:${Each.dimensions[1]} ${strFileSize(Each.size)} ${TC(Each.created)} `}</button
       >
     </div>
   {/each}

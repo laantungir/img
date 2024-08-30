@@ -1,1 +1,1 @@
-export const jsonVersion = {"version": "0.0.26"}
+export const jsonVersion = {"version": "0.0.27"}
