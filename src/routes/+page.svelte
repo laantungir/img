@@ -79,6 +79,8 @@ onMount(async () => {
       console.log(jsonImg, jsonImg.length)
       jsonImg = await arrOfObjSort(jsonImg,"created", false)
       console.log(jsonImg, jsonImg.length)
+
+      jsonImg = jsonImg.slice(0,100)
       
     } catch (error) {
       console.error("Error fetching the page:", error);
@@ -93,7 +95,7 @@ onMount(async () => {
 <h1>Gallery {jsonImg.length}</h1>
 
 <div id="divMain">
-  {#each jsonImg as Each}
+  {#each jsonImg  as Each}
     <div class="divBoxes">
       <div class="divTopBox">
         <button
